@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse
-from .models import Student
+from .models import Student, ChessCourse, Professor
 from .forms import StudentForm
 
 
@@ -41,3 +41,14 @@ def update_student(request, pk):
 def view_student(request, pk):
     student = get_object_or_404(Student, pk=pk)
     return render(request, 'students/view_student.html', {"student": student})
+
+
+def view_school_profit(request):
+    all_students = Student.objects.all()
+    school_profit = sum(course.course_price for student in all_students for course in student.students_course.all())
+    return render(request, 'students/view_school_profit.html', {"school_profit": school_profit})
+
+
+def view_professor(request):
+    pass
+
