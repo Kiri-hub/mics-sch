@@ -49,6 +49,8 @@ def view_school_profit(request):
     return render(request, 'students/view_school_profit.html', {"school_profit": school_profit})
 
 
-def view_professor(request):
-    pass
-
+def view_professor_profit(request, pk):
+    professor = get_object_or_404(Professor, pk=pk)
+    students = professor.professor_students.all()
+    professor_profit = sum(course.course_price for student in students for course in student.students_course.all())
+    return render(request, 'students/view_professor_profit.html', {"professor_profit": professor_profit})
