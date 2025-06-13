@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>View student</title>
-</head>
-<body>
+{% extends "students/base.html" %}
+
+{% block title %}Homepage - MICS{% endblock %}
+
+{% block content %}
     <h1>{{ student.name }} {{ student.surname}}</h1>
     <a href="{% url 'delete_student' student.id %}">Delete student</a>
     <a href="{% url 'update_student' student.id %}">Update student</a>
-</body>
-</html>
+{% endblock %}

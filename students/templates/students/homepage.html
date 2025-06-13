@@ -1,0 +1,18 @@
+{% extends "students/base.html" %}
+
+{% block title %}Homepage - MICS{% endblock %}
+
+{% block content %}
+    <ul class="list-group">
+        {% for student_id, student_info in students.items %}
+            <li class="list-group-item" aria-current="true">
+                <a href="{% url 'view_student' student_id %}">
+                    {{ student_info.name }} {{ student_info.surname }} -
+                    {% for course in student_info.courses %}
+                        {{ course }}{% if not forloop.last %}, {% endif %}
+                    {% endfor%}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

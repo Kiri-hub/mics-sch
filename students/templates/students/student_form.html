@@ -6,6 +6,6 @@
     <form method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">{{ action }}</button>
     </form>
 {% endblock %}

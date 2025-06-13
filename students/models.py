@@ -24,7 +24,7 @@ class Student(models.Model):
     surname = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE, null=True, related_name="professor_students")
-    students_course = models.ManyToManyField(ChessCourse, related_name="course_students")
+    students_courses = models.ManyToManyField(ChessCourse, related_name="course_students")
 
     def __str__(self):
         return f"{self.name} {self.surname}"
