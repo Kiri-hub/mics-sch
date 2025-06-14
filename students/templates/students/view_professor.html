@@ -1,0 +1,89 @@
+{% extends "students/base.html" %}
+
+{% block title %}Homepage - MICS{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h2 class="text-muted">Professor`s BIO</h2>
+    </div>
+    <div class="row border">
+        <div class="col-4 text-md-start bg-primary">
+            <h2>{{professor.name}} {{professor.surname}}</h2>
+            <p>{{ professor.professor_students_num }}</p>
+        </div>
+        <div class="col-8 text-md-start bg-warning">
+            <h2>Image</h2>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <h2 class="text-muted">Professor`s students</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Course</th>
+              <th scope="col">Professor</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+        <tbody>
+            {% for student_id, student_info in students.items %}
+                  <tr onclick="window.location='{% url 'view_student' student_id %}'" style="cursor: pointer;">
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ student_info.name }}</td>
+                      <td>{{ student_info.surname }}</td>
+                      <td>{% for course in student_info.courses %}
+                            {{ course }}{% if not forloop.last %}, {% endif %}
+                          {% endfor%}
+                      </td>
+                      <td>{{ student_info.professor }}</td>
+                      <td>{{ student_info.status }}</td>
+                  </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-5">
+        <h2 class="text-muted">Professor`s statistics</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Total</th>
+              <th scope="col">Professor`s Rate</th>
+              <th scope="col">Schools`s Rate</th>
+            </tr>
+          </thead>
+        <tbody>
+            {% for student_id, student_info in students.items %}
+                  <tr onclick="window.location='{% url 'view_student' student_id %}'" style="cursor: pointer;">
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ student_info.name }}</td>
+                      <td>{{ student_info.surname }}</td>
+                      <td>{{ student_info.total_income }}
+                      </td>
+                      <td>{{ student_info.professor_rate }}</td>
+                      <td>{{ student_info.school_rate }}</td>
+                  </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="table-info">
+                <td colspan="3">Total: </td>
+                <td>{{ professor.total_income }}</td>
+                <td>{{ professor.professor_rate }}</td>
+                <td>{{ professor.school_rate }}</td>
+            </tr>
+        </tfoot>
+      </table>
+    </div>
+{% endblock %}
