@@ -6,17 +6,20 @@
     <div class="text-center">
         <h2 class="text-muted">Professor`s BIO</h2>
     </div>
-    <div class="row border">
-        <div class="col-4 text-md-start bg-primary">
-            <h2>{{professor.name}} {{professor.surname}}</h2>
-            <p>{{ professor.professor_students_num }}</p>
-        </div>
-        <div class="col-8 text-md-start bg-warning">
-            <h2>Image</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card">
+              <img src="{{ professor.professor_picture.url }}" class="card-img-top">
+              <div class="card-body">
+                    <h2>{{professor.name}} {{professor.surname}}</h2>
+                    <p>Amount of student: {{ professor.professor_students_num }}</p>
+                    <a href="#students" class="btn btn-primary">See students</a>
+                    <a href="#stats" class="btn btn-primary">See statistics</a>
+              </div>
+            </div>
         </div>
     </div>
-
-    <div class="text-center mt-5">
+    <div class="text-center mt-5" id="students">
         <h2 class="text-muted">Professor`s students</h2>
     </div>
     <div class="table-responsive">
@@ -48,7 +51,7 @@
         </tbody>
       </table>
     </div>
-    <div class="text-center mt-5">
+    <div class="text-center mt-5" id="stats">
         <h2 class="text-muted">Professor`s statistics</h2>
     </div>
     <div class="table-responsive">
@@ -69,10 +72,10 @@
                       <th scope="row">{{ forloop.counter }}</th>
                       <td>{{ student_info.name }}</td>
                       <td>{{ student_info.surname }}</td>
-                      <td>{{ student_info.total_income }}
+                      <td>{{ student_info.total_income_from_student }}
                       </td>
-                      <td>{{ student_info.professor_rate }}</td>
-                      <td>{{ student_info.school_rate }}</td>
+                      <td>{{ student_info.professor_rate_from_student }}</td>
+                      <td>{{ student_info.school_rate_from_student }}</td>
                   </tr>
             {% endfor %}
         </tbody>

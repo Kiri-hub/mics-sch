@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from django.urls import reverse
 from .models import Student, ChessCourse, Professor
 from .forms import StudentForm, ProfessorForm
@@ -50,7 +49,8 @@ def update_student(request, pk):
 
 def view_student(request, pk):
     student = get_object_or_404(Student, pk=pk)
-    return render(request, 'students/view_student.html', {"student": student})
+    courses = student.students_courses.all
+    return render(request, 'students/view_student.html', {"student": student, "courses": courses})
 
 
 def view_school_profit(request):
@@ -93,6 +93,7 @@ def view_professor(request, pk):
         "professor_students": professor_students,
         "school_rate": school_rate,
         "professor_students_num": len(professor_students),
+        "professor_picture": professor.picture,
     }
     students = {}
     for student in professor_students:
@@ -103,9 +104,9 @@ def view_professor(request, pk):
             'courses': courses,
             'professor': student.professor,
             'status': 'Active' if student.is_active == True else 'Not active',
-            'total_income': sum(course.course_price for course in courses),
-            'professor_rate': sum(course.professor_rate for course in courses),
-            'school_rate': sum(course.get_school_rate() for course in courses),
+            'total_income_from_student': student.get_total_income_from_student(),
+            'professor_rate_from_student': student.get_total_professore_rate_from_student(),
+            'school_rate_from_student': student.get_total_school_rate_from_student(),
         }
     return render(request, 'students/view_professor.html', {'students': students, 'professor': professor_dict})
 
